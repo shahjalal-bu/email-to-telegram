@@ -8,7 +8,7 @@ const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
-const SPECIFIC_EMAIL = process.env.SPECIFIC_EMAIL;
+const targetEmails = ["abc.com", "xyz.com"]; // set to null to allow all
 
 // === TELEGRAM BOT ===
 const bot = new TelegramBot(TELEGRAM_TOKEN, { polling: false });
@@ -75,7 +75,7 @@ imap.once('ready', () => {
               }
               body = body || '(no body)';
 
-              if (!SPECIFIC_EMAIL || from.includes(SPECIFIC_EMAIL)) {
+              if (targetEmails.includes(from)) {
                 console.log("Cleaned body:", body);
 
                 const message = `📧 *New Email from ${from}*\n\n*Subject:* ${subject}\n\n${body}`;
